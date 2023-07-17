@@ -10,10 +10,9 @@ import * as $4 from "./routes/index.tsx";
 import * as $5 from "./routes/login.tsx";
 import * as $6 from "./routes/movement/[id].tsx";
 import * as $7 from "./routes/movement/index.tsx";
-import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/Deleter.tsx";
-import * as $$2 from "./islands/ThemeSwitcher.tsx";
-import * as $$3 from "./islands/Toaster.tsx";
+import * as $$0 from "./islands/Deleter.tsx";
+import * as $$1 from "./islands/ThemeSwitcher.tsx";
+import * as $$2 from "./islands/ToastsWrap.tsx";
 
 const manifest = {
   routes: {
@@ -27,10 +26,9 @@ const manifest = {
     "./routes/movement/index.tsx": $7,
   },
   islands: {
-    "./islands/Counter.tsx": $$0,
-    "./islands/Deleter.tsx": $$1,
-    "./islands/ThemeSwitcher.tsx": $$2,
-    "./islands/Toaster.tsx": $$3,
+    "./islands/Deleter.tsx": $$0,
+    "./islands/ThemeSwitcher.tsx": $$1,
+    "./islands/ToastsWrap.tsx": $$2,
   },
   baseUrl: import.meta.url,
 };

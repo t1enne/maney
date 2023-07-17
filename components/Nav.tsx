@@ -1,3 +1,5 @@
+import ThemeSwitcher from "../islands/ThemeSwitcher.tsx";
+
 export default ({ user }: { user?: string }) => {
   return (
     <nav class="container">
@@ -7,8 +9,12 @@ export default ({ user }: { user?: string }) => {
             <strong>🏠 Home</strong>
           </a>
         </li>
-        {user && (
-          <li>
+      </ul>
+      {user && (
+        <ul>
+          {
+            /*
+           <li>
             <details role="list" dir="rtl">
               <summary aria-haspopup="listbox" role="link" class="secondary">
                 {user}
@@ -20,15 +26,13 @@ export default ({ user }: { user?: string }) => {
               </ul>
             </details>
           </li>
-        )}
-        {
-          /*
-        <li>
-          <ThemeSwitcher />
-        </li>
-        */
-        }
-      </ul>
+          */
+          }
+          <li>
+            <ThemeSwitcher />
+          </li>
+        </ul>
+      )}
     </nav>
   );
 };

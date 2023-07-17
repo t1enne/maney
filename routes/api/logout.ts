@@ -1,5 +1,4 @@
 import { Handlers } from "$fresh/server.ts";
-import { deleteCookie } from "$std/http/cookie.ts";
 import { supabase } from "../../main.ts";
 
 export const handler: Handlers = {
@@ -13,7 +12,6 @@ export const handler: Handlers = {
       });
     }
     const headers = new Headers();
-    deleteCookie(headers, "auth");
     headers.set("Location", "/");
     return new Response(null, {
       status: 303,

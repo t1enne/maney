@@ -24,10 +24,8 @@ export const handler: Handlers = {
 
 export default ({ data }: PageProps) => {
   return (
-    <Layout>
-      <main class="container">
-        <MovementUpsert movement={data} />
-      </main>
+    <Layout title="Edit movement" user="nasir">
+      <MovementUpsert movement={data} />
     </Layout>
   );
 };

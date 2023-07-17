@@ -8,6 +8,7 @@ interface Props {
 
 export default (props: Props) => {
   const movement = props.movement;
+  const isExpense = movement?.amount < 0;
   const [month, day, year] = new Date().toLocaleDateString().split("/");
   const dateString = `${year.padStart(2, "0")}-${
     month.padStart(
@@ -19,7 +20,6 @@ export default (props: Props) => {
   const formAttrs = {
     method: "post",
     action: "/api/movement",
-    onClick: (e: Event) => e.preventDefault(),
   };
 
   return (
@@ -34,6 +34,29 @@ export default (props: Props) => {
         <form {...formAttrs}>
           <input type="hidden" name="_method" value="POST" />
           <input type="hidden" name="id" value={movement?.id} />
+
+          <fieldset class="flex gap-4">
+            <label for="expense">
+              <input
+                checked={isExpense}
+                type="radio"
+                id="expense"
+                name="type"
+                value="-1"
+              />
+              Expense
+            </label>
+            <label for="gain">
+              <input
+                checked={!isExpense}
+                type="radio"
+                id="gain"
+                name="type"
+                value="1"
+              />
+              Gain
+            </label>
+          </fieldset>
           <input
             type="text"
             value={movement?.note}

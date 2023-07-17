@@ -1,6 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
 import { supabase } from "../../main.ts";
+import { Toaster } from "../../utils/Toaster.ts";
 
 export const handler: Handlers = {
   async POST(req) {
@@ -42,6 +43,10 @@ export const handler: Handlers = {
       secure: true,
     });
 
+    Toaster.showToast({
+      message: `Welcome ${session.user.email}!`,
+      type: "positive",
+    });
     headers.set("Location", "/");
     return new Response(null, {
       status: 303, // "See Other"

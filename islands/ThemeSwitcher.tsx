@@ -25,17 +25,19 @@ export default () => {
       (window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light");
-    console.warn(window.localStorage.theme, preferredTheme);
 
     setTheme(preferredTheme);
   }, []);
 
   return (
     <details role="list" dir="rtl">
-      <summary aria-haspopup="listbox" role="link" class="secondary">
-        Theme
+      <summary aria-haspopup="listbox" class="">
+        Menu
       </summary>
       <ul role="listbox">
+        {
+          /*
+        <li class="text-gray-700">Theme</li>
         {options.map((theme) => (
           <li>
             <a
@@ -48,6 +50,12 @@ export default () => {
             </a>
           </li>
         ))}
+          */
+        }
+        <li class="border-t border-gray-700 text-gray-700">Actions</li>
+        <li class="text-red-400">
+          <a href="/api/logout">Logout</a>
+        </li>
       </ul>
     </details>
   );

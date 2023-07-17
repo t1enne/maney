@@ -6,10 +6,8 @@ export default (_props: PageProps) => {
   // const { id } = props.params;
 
   return (
-    <Layout>
-      <main class="container">
-        <MovementUpsert movement={undefined} />
-      </main>
+    <Layout title="Add movement" user="nasir">
+      <MovementUpsert />
     </Layout>
   );
 };

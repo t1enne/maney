@@ -14,6 +14,8 @@ import twindConfig from "./twind.config.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const { SUPA_URL, SUPA_PWD } = await load();
+
+export const toasts = [];
 export const supabase = createClient(SUPA_URL, SUPA_PWD, {
   auth: {
     autoRefreshToken: true,
@@ -21,4 +23,11 @@ export const supabase = createClient(SUPA_URL, SUPA_PWD, {
   },
 });
 
-await start(manifest, { plugins: [twindPlugin(twindConfig)] });
+await start(manifest, {
+  plugins: [twindPlugin(twindConfig)],
+  render: (ctx, render) => {
+    ctx.lang = "it";
+    render();
+  },
+  port: 3000,
+});
