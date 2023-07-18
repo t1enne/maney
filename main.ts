@@ -14,14 +14,20 @@ import twindConfig from "./twind.config.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const { SUPA_URL, SUPA_PWD } = await load();
+Deno.env.set("SUPA_URL", SUPA_URL);
+Deno.env.set("SUPA_PWD", SUPA_PWD);
 
 export const toasts = [];
-export const supabase = createClient(SUPA_URL, SUPA_PWD, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
+export const supabase = createClient(
+  Deno.env.get("SUPA_URL")!,
+  Deno.env.get("SUPA_PWD")!,
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+    },
   },
-});
+);
 
 await start(manifest, {
   plugins: [twindPlugin(twindConfig)],

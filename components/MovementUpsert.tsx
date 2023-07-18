@@ -69,7 +69,9 @@ export default (props: Props) => {
             name="amount"
             placeholder="Amount"
             aria-label="amount"
-            value={movement?.amount.toString()}
+            value={movement?.amount
+              ? Math.abs(movement.amount).toString()
+              : undefined}
             step="0.25"
             required
           />

@@ -52,6 +52,15 @@ export default ({ data: { movements, monthTotal = 0 } }: PageProps<Data>) => {
             </button>
           </a>
         </div>
+        <div class="flex justify-between">
+          <button class="w-auto secondary" role="button">
+            🡨
+          </button>
+          <span></span>
+          <button class="w-auto secondary" role="button">
+            🡪
+          </button>
+        </div>
         <MainTable movements={movements} />
       </article>
     </Layout>
