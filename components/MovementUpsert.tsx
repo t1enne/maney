@@ -8,7 +8,7 @@ interface Props {
 
 export default (props: Props) => {
   const movement = props.movement;
-  const isExpense = movement?.amount < 0;
+  const isExpense = movement && movement?.amount < 0 ? true : false;
   const [month, day, year] = new Date().toLocaleDateString().split("/");
   const dateString = `${year.padStart(2, "0")}-${
     month.padStart(

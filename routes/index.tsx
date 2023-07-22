@@ -33,7 +33,7 @@ export const handler: Handlers = {
 export default ({ data: { movements, monthTotal = 0 } }: PageProps<Data>) => {
   const totalCssClass = monthTotal > 0 ? Styles.positive : Styles.negative;
   return (
-    <Layout user="nasir">
+    <Layout>
       <article class="my-0">
         <div class="flex justify-between">
           <hgroup>
@@ -51,15 +51,6 @@ export default ({ data: { movements, monthTotal = 0 } }: PageProps<Data>) => {
               <strong>+</strong>
             </button>
           </a>
-        </div>
-        <div class="flex justify-between">
-          <button class="w-auto secondary" role="button">
-            🡨
-          </button>
-          <span></span>
-          <button class="w-auto secondary" role="button">
-            🡪
-          </button>
         </div>
         <MainTable movements={movements} />
       </article>
