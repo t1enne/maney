@@ -13,17 +13,20 @@ function redirectToHome() {
 
 async function upsertMovement(form: FormData) {
   const id = <string> form.get("id");
+  const userId = <string> form.get("userId");
   const note = <string> form.get("note");
   const amount: string | number = <string> form.get("amount");
-  const income = <string> form.get("income");
+  const type = <string> form.get("type");
   const date = <string> form.get("date");
   const category = <string> form.get("category");
+  console.log(form);
 
   const payload: Record<string, unknown> = {
     note,
-    amount: income !== "on" ? +amount * -1 : +amount,
+    amount: +amount * +type,
     date,
     category,
+    userId,
   };
 
   if (id) payload.id = +id;

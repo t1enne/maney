@@ -10,10 +10,9 @@ export default ({ user }: { user?: string }) => {
           </a>
         </li>
       </ul>
-      {user && (
-        <ul>
-          {
-            /*
+      <ul>
+        {
+          /*
            <li>
             <details role="list" dir="rtl">
               <summary aria-haspopup="listbox" role="link" class="secondary">
@@ -27,12 +26,11 @@ export default ({ user }: { user?: string }) => {
             </details>
           </li>
           */
-          }
-          <li>
-            <ThemeSwitcher />
-          </li>
-        </ul>
-      )}
+        }
+        <li>
+          <ThemeSwitcher />
+        </li>
+      </ul>
     </nav>
   );
 };

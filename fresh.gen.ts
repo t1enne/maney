@@ -11,8 +11,9 @@ import * as $5 from "./routes/login.tsx";
 import * as $6 from "./routes/movement/[id].tsx";
 import * as $7 from "./routes/movement/index.tsx";
 import * as $$0 from "./islands/Deleter.tsx";
-import * as $$1 from "./islands/ThemeSwitcher.tsx";
-import * as $$2 from "./islands/ToastsWrap.tsx";
+import * as $$1 from "./islands/MainTable.tsx";
+import * as $$2 from "./islands/ThemeSwitcher.tsx";
+import * as $$3 from "./islands/ToastsWrap.tsx";
 
 const manifest = {
   routes: {
@@ -27,8 +28,9 @@ const manifest = {
   },
   islands: {
     "./islands/Deleter.tsx": $$0,
-    "./islands/ThemeSwitcher.tsx": $$1,
-    "./islands/ToastsWrap.tsx": $$2,
+    "./islands/MainTable.tsx": $$1,
+    "./islands/ThemeSwitcher.tsx": $$2,
+    "./islands/ToastsWrap.tsx": $$3,
   },
   baseUrl: import.meta.url,
 };

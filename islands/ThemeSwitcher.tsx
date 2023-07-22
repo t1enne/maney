@@ -1,4 +1,5 @@
 import { useEffect } from "preact/hooks";
+import { Styles } from "../consts/Styles.ts";
 
 function handleClick(e: Event) {
   e.preventDefault();
@@ -52,9 +53,11 @@ export default () => {
         ))}
           */
         }
-        <li class="border-t border-gray-700 text-gray-700">Actions</li>
-        <li class="text-red-400">
-          <a href="/api/logout">Logout</a>
+        <li class="text-gray-700">Actions</li>
+        <li>
+          <a class={`text-${Styles.negative}`} href="/api/logout">
+            Logout
+          </a>
         </li>
       </ul>
     </details>

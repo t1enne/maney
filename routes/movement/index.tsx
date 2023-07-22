@@ -1,13 +1,24 @@
-import { PageProps } from "$fresh/src/server/types.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { getCookies } from "$std/http/cookie.ts";
 import MovementUpsert from "../../components/MovementUpsert.tsx";
 import Layout from "../../layouts/Layout.tsx";
 
-export default (_props: PageProps) => {
-  // const { id } = props.params;
+interface Props {
+  userId: string;
+}
+export const handler: Handlers<Props> = {
+  GET(req, ctx) {
+    const { userId } = getCookies(req.headers);
+    return ctx.render({ userId });
+  },
+};
+
+export default (props: PageProps<Props>) => {
+  const userId = props.data.userId;
 
   return (
     <Layout title="Add movement" user="nasir">
-      <MovementUpsert />
+      <MovementUpsert userId={userId} />
     </Layout>
   );
 };

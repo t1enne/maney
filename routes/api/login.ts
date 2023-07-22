@@ -34,8 +34,8 @@ export const handler: Handlers = {
     });
 
     setCookie(headers, {
-      name: "user",
-      value: session.user.email as string,
+      name: "userId",
+      value: session.user.id,
       maxAge: session.expires_in,
       sameSite: "Lax", // this is important to prevent CSRF attacks
       domain: url.hostname,

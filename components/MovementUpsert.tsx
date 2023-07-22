@@ -4,10 +4,11 @@ import { Movement } from "../types/Movement.type.ts";
 
 interface Props {
   movement?: Movement;
+  userId?: string;
 }
 
 export default (props: Props) => {
-  const movement = props.movement;
+  const { movement, userId } = props;
   const isExpense = movement && movement?.amount < 0 ? true : false;
   const [month, day, year] = new Date().toLocaleDateString().split("/");
   const dateString = `${year.padStart(2, "0")}-${
@@ -33,6 +34,7 @@ export default (props: Props) => {
         </div>
         <form {...formAttrs}>
           <input type="hidden" name="_method" value="POST" />
+          <input type="hidden" name="userId" value={userId} />
           <input type="hidden" name="id" value={movement?.id} />
 
           <fieldset class="flex gap-4">
