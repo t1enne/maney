@@ -1,4 +1,4 @@
-import { Categories } from "../consts/Categories.ts";
+import CtgrSelectOptions from "../islands/CtgrSelectOptions.tsx";
 import Deleter from "../islands/Deleter.tsx";
 import { Movement } from "../types/Movement.type.ts";
 
@@ -9,7 +9,8 @@ interface Props {
 
 export default (props: Props) => {
   const { movement, userId } = props;
-  const isExpense = movement && movement?.amount < 0 ? true : false;
+  const amount = movement?.amount || 0.0;
+  const isExpense = amount <= 0 ? true : false;
   const [month, day, year] = new Date().toLocaleDateString().split("/");
   const dateString = `${year.padStart(2, "0")}-${
     month.padStart(
@@ -49,13 +50,7 @@ export default (props: Props) => {
               Expense
             </label>
             <label for="gain">
-              <input
-                checked={!isExpense}
-                type="radio"
-                id="gain"
-                name="type"
-                value="1"
-              />
+              <input checked={!isExpense} type="radio" id="gain" name="type" />
               Gain
             </label>
           </fieldset>
@@ -71,9 +66,7 @@ export default (props: Props) => {
             name="amount"
             placeholder="Amount"
             aria-label="amount"
-            value={movement?.amount
-              ? Math.abs(movement.amount).toString()
-              : undefined}
+            value={Math.abs(amount).toFixed(2)}
             step="0.25"
             required
           />
@@ -85,17 +78,10 @@ export default (props: Props) => {
             required
           />
           <select class="capitalize" name="category" required>
-            <option value="" disabled selected>
-              Categoria
-            </option>
-            {Categories.map((category) => (
-              <option
-                selected={category === movement?.category}
-                value={category}
-              >
-                {category}
-              </option>
-            ))}
+            <CtgrSelectOptions
+              movement={movement}
+              type={isExpense ? "expense" : "gain"}
+            />
           </select>
           <button type="submit">{movement ? "Save" : "Add"}</button>
         </form>

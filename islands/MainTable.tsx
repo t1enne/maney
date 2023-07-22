@@ -57,14 +57,14 @@ export default ({ movements, total, month, year }: Props) => {
       <form id="date-picker" method="post">
         <fieldset class="flex items-center gap-2 mb-0 justify-between mt-8">
           <button
-            class="w-auto secondary"
+            class="w-auto outline secondary"
             role="button"
             data-date={`${month == 0 ? year - 1 : year}-${
               month == 0 ? 11 : month - 2
             }`}
             onClick={selectAndSubmit}
           >
-            🡨
+            ⬅️
           </button>
           <input
             onChange={handleChange}
@@ -82,14 +82,14 @@ export default ({ movements, total, month, year }: Props) => {
             ))}
           </select>
           <button
-            class="w-auto secondary"
+            class="w-auto outline secondary"
             role="button"
             data-date={`${month == 11 ? year + 1 : year}-${
               month == 11 ? 0 : month
             }`}
             onClick={selectAndSubmit}
           >
-            🡪
+            ➡️
           </button>
         </fieldset>
       </form>
@@ -112,8 +112,12 @@ export default ({ movements, total, month, year }: Props) => {
                   </small>
                 </div>
                 <div class="ml-4">
-                  <a href={`/movement/${m.id}`} role="button" class="secondary">
-                    ✎
+                  <a
+                    href={`/movement/${m.id}`}
+                    role="button"
+                    class="outline secondary"
+                  >
+                    ✏️
                   </a>
                 </div>
               </div>

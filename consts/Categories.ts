@@ -1,11 +1,14 @@
-export const Categories = [
-  "bar",
-  "dining",
-  "entertainment",
-  "groceries",
-  "health",
-  "household",
-  "other",
-  "rent",
-  "transport",
-] as const;
+export const Categories = {
+  expense: [
+    "bar",
+    "dining",
+    "entertainment",
+    "groceries",
+    "health",
+    "household",
+    "other",
+    "rent",
+    "transport",
+  ],
+  gain: ["gifts", "pay", "prepayment", "work"],
+} as const;

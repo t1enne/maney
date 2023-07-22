@@ -10,10 +10,11 @@ import * as $4 from "./routes/index.tsx";
 import * as $5 from "./routes/login.tsx";
 import * as $6 from "./routes/movement/[id].tsx";
 import * as $7 from "./routes/movement/index.tsx";
-import * as $$0 from "./islands/Deleter.tsx";
-import * as $$1 from "./islands/MainTable.tsx";
-import * as $$2 from "./islands/ThemeSwitcher.tsx";
-import * as $$3 from "./islands/ToastsWrap.tsx";
+import * as $$0 from "./islands/CtgrSelectOptions.tsx";
+import * as $$1 from "./islands/Deleter.tsx";
+import * as $$2 from "./islands/MainTable.tsx";
+import * as $$3 from "./islands/ThemeSwitcher.tsx";
+import * as $$4 from "./islands/ToastsWrap.tsx";
 
 const manifest = {
   routes: {
@@ -27,10 +28,11 @@ const manifest = {
     "./routes/movement/index.tsx": $7,
   },
   islands: {
-    "./islands/Deleter.tsx": $$0,
-    "./islands/MainTable.tsx": $$1,
-    "./islands/ThemeSwitcher.tsx": $$2,
-    "./islands/ToastsWrap.tsx": $$3,
+    "./islands/CtgrSelectOptions.tsx": $$0,
+    "./islands/Deleter.tsx": $$1,
+    "./islands/MainTable.tsx": $$2,
+    "./islands/ThemeSwitcher.tsx": $$3,
+    "./islands/ToastsWrap.tsx": $$4,
   },
   baseUrl: import.meta.url,
 };
