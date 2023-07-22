@@ -25,15 +25,17 @@ async function upsertMovement(form: FormData) {
     amount: +amount * +type,
     date,
     category,
-    userId,
   };
 
   if (id) payload.id = +id;
+  if (userId) payload.userId = userId;
+
   const res = await supabase.from("movements").upsert([payload]).select();
+  console.log(res);
 
   if (res.error) {
     console.error("unable to save mvmnt", { res });
-    Toaster.showToast({ message: "Updated succesfully", type: "negative" });
+    Toaster.showToast({ message: "Error! Couldn't save", type: "negative" });
     return;
   }
   Toaster.showToast({ message: "Updated succesfully", type: "positive" });
@@ -45,7 +47,7 @@ async function deleteMovement(form: FormData) {
 
   if (res.error) {
     console.error("unable to delete mvmnt", { res });
-    Toaster.showToast({ message: "Updated succesfully", type: "negative" });
+    Toaster.showToast({ message: "Error! Couldn't save", type: "negative" });
     return;
   }
 

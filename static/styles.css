@@ -1,3 +1,9 @@
+body {
+  max-width: 100dvw;
+  max-height: 100dvh;
+  overflow-y: scroll;
+}
+
 button.reset {
   background: transparent;
   padding: 0px;
