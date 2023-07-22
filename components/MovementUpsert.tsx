@@ -9,7 +9,7 @@ interface Props {
 
 export default (props: Props) => {
   const { movement, userId } = props;
-  const amount = movement?.amount || 0.0;
+  const amount = movement?.amount || 0;
   const isExpense = amount <= 0 ? true : false;
   const [month, day, year] = new Date().toLocaleDateString().split("/");
   const dateString = `${year.padStart(2, "0")}-${
@@ -50,7 +50,13 @@ export default (props: Props) => {
               Expense
             </label>
             <label for="gain">
-              <input checked={!isExpense} type="radio" id="gain" name="type" />
+              <input
+                checked={!isExpense}
+                type="radio"
+                id="gain"
+                name="type"
+                value="1"
+              />
               Gain
             </label>
           </fieldset>

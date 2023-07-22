@@ -15,7 +15,7 @@ async function upsertMovement(form: FormData) {
   const id = <string> form.get("id");
   const userId = <string> form.get("userId");
   const note = <string> form.get("note");
-  const amount: string | number = <string> form.get("amount");
+  const amount = <string> form.get("amount");
   const type = <string> form.get("type");
   const date = <string> form.get("date");
   const category = <string> form.get("category");
@@ -26,6 +26,8 @@ async function upsertMovement(form: FormData) {
     date,
     category,
   };
+
+  console.log(payload, form);
 
   if (id) payload.id = +id;
   if (userId) payload.userId = userId;

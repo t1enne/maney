@@ -102,7 +102,7 @@ export default ({ movements, total, month, year }: Props) => {
           return (
             <div class="flex justify-between mt-4">
               <div>
-                <h6 class={`${amountClass} mb-0`}>€ {m.amount.toFixed(2)}</h6>
+                <h6 class={`${amountClass} mb-0`}>€ {m.amount?.toFixed(2)}</h6>
                 <p class="text-sm text-gray-500">{m.note ? m.note : "-"}</p>
               </div>
               <div class="flex">
