@@ -19,7 +19,6 @@ async function upsertMovement(form: FormData) {
   const type = <string> form.get("type");
   const date = <string> form.get("date");
   const category = <string> form.get("category");
-  console.log(form);
 
   const payload: Record<string, unknown> = {
     note,
@@ -30,7 +29,6 @@ async function upsertMovement(form: FormData) {
   };
 
   if (id) payload.id = +id;
-  console.log(form, payload);
   const res = await supabase.from("movements").upsert([payload]).select();
 
   if (res.error) {
@@ -43,7 +41,6 @@ async function upsertMovement(form: FormData) {
 
 async function deleteMovement(form: FormData) {
   const id = <string> form.get("id");
-  console.log("attempting to delete entry with id: ", id);
   const res = await supabase.from("movements").delete().eq("id", id).select();
 
   if (res.error) {

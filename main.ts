@@ -16,6 +16,7 @@ import { createClient } from "$supabase";
 const { SUPA_URL, SUPA_PWD } = await load();
 
 if (SUPA_URL && SUPA_PWD) {
+  // to handle local .env
   Deno.env.set("SUPA_URL", SUPA_URL);
   Deno.env.set("SUPA_PWD", SUPA_PWD);
 }

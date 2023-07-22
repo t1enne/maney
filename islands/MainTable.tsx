@@ -12,13 +12,11 @@ interface Props {
 function selectAndSubmit(e: Event) {
   e.preventDefault();
   const target = e.target as HTMLButtonElement;
-  console.log(target);
   const [year, month] = target.getAttribute("data-date")!.split("-");
 
   const yearInput = document.querySelector(
     '#date-picker [name="year"]',
   ) as HTMLInputElement;
-  console.log(yearInput, year);
   yearInput.value = year;
 
   const monthInput = document.querySelector(

@@ -19,7 +19,6 @@ async function getFilteredMovements(
 ): Promise<Data | null> {
   const yyyyMM = `${year}-${month.toString().padStart(2, "0")}`;
   const lastDayInMonth = new Date(year, month, 0).getDate();
-  console.log(yyyyMM, lastDayInMonth);
   const { data: movements, error } = await supabase
     .from("movements")
     .select()
