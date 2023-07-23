@@ -1,34 +1,28 @@
-import { useEffect } from "preact/hooks";
 import { Styles } from "../consts/Styles.ts";
 
 function handleClick(e: Event) {
   e.preventDefault();
   const t = e.target as HTMLElement;
-  const theme = t.getAttribute("data-theme-switcher") as string;
+  let theme = t.getAttribute("data-theme-switcher") as string;
   document.querySelector("details[role='list']")?.removeAttribute("open");
-  if (theme == "auto") {
-    document.documentElement.removeAttribute("data-theme");
-    window.localStorage.removeItem("theme");
-  } else {
-    setTheme(theme);
-  }
+  if (theme == "auto") theme = getDefaultTheme();
+  setTheme(theme);
 }
+
 function setTheme(theme: string) {
-  window.localStorage.setItem("theme", theme);
   document.documentElement.setAttribute("data-theme", theme);
+  document.body.setAttribute("class", theme);
+  window.localStorage.setItem("theme", theme);
+}
+
+function getDefaultTheme(): string {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 export default () => {
   const options = ["auto", "light", "dark"];
-
-  useEffect(() => {
-    const preferredTheme = window.localStorage.theme ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-
-    setTheme(preferredTheme);
-  }, []);
 
   return (
     <details role="list" dir="rtl">
@@ -36,9 +30,7 @@ export default () => {
         Menu
       </summary>
       <ul role="listbox">
-        {
-          /*
-        <li class="text-gray-700">Theme</li>
+        <li class="text-gray-400 dark:text-gray-700">Theme</li>
         {options.map((theme) => (
           <li>
             <a
@@ -51,9 +43,7 @@ export default () => {
             </a>
           </li>
         ))}
-          */
-        }
-        <li class="text-gray-700">Actions</li>
+        <li class="text-gray-400 dark:text-gray-700">Actions</li>
         <li>
           <a class={`text-${Styles.negative}`} href="/api/logout">
             Logout

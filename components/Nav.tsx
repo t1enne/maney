@@ -1,6 +1,6 @@
-import ThemeSwitcher from "../islands/ThemeSwitcher.tsx";
+import SideMenu from "../islands/SideMenu.tsx";
 
-export default ({ user }: { user?: string }) => {
+export default () => {
   return (
     <nav class="container">
       <ul class="flex justify-between w-full">
@@ -11,24 +11,8 @@ export default ({ user }: { user?: string }) => {
         </li>
       </ul>
       <ul>
-        {
-          /*
-           <li>
-            <details role="list" dir="rtl">
-              <summary aria-haspopup="listbox" role="link" class="secondary">
-                {user}
-              </summary>
-              <ul role="listbox">
-                <li>
-                  <a href="/api/logout">Logout</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          */
-        }
         <li>
-          <ThemeSwitcher />
+          <SideMenu />
         </li>
       </ul>
     </nav>

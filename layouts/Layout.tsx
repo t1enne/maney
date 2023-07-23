@@ -12,7 +12,7 @@ interface Props {
 
 export default (props: Props) => {
   return (
-    <>
+    <html data-theme="auto">
       <Head>
         <title>{props.title || "Home finances"}</title>
         <link rel="icon" href="/favicon.ico" />
@@ -22,9 +22,22 @@ export default (props: Props) => {
         />
         <link rel="stylesheet" href="styles.css" />
       </Head>
-      <Nav user={props.user} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+const preferredTheme = window.localStorage.theme ||
+(window.matchMedia("(prefers-color-scheme: dark)").matches
+ ? "dark"
+ : "light");
+document.documentElement.setAttribute('data-theme', preferredTheme);
+document.body.setAttribute('class', preferredTheme);
+window.localStorage.setItem("theme", preferredTheme);
+  `,
+        }}
+      />
+      <Nav />
       <main class="container">{props.children}</main>
       <ToastsWrap toasts={Toaster.toasts} />
-    </>
+    </html>
   );
 };
