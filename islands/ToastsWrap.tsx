@@ -40,7 +40,7 @@ function Toast({ t }: { t: Toast }) {
       class={`toast bg-${toastClass} w-96 py-2 my-4 mx-auto flex flex-col gap-4`}
       ref={toastRef}
     >
-      <small class="text-center">{t.message}</small>
+      <small class="text-gray-100 text-center">{t.message}</small>
       <div class="custom-progress-bar">
         <span></span>
       </div>

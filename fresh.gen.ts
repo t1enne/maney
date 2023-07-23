@@ -13,7 +13,7 @@ import * as $7 from "./routes/movement/index.tsx";
 import * as $$0 from "./islands/CtgrSelectOptions.tsx";
 import * as $$1 from "./islands/Deleter.tsx";
 import * as $$2 from "./islands/MainTable.tsx";
-import * as $$3 from "./islands/ThemeSwitcher.tsx";
+import * as $$3 from "./islands/SideMenu.tsx";
 import * as $$4 from "./islands/ToastsWrap.tsx";
 
 const manifest = {
@@ -31,7 +31,7 @@ const manifest = {
     "./islands/CtgrSelectOptions.tsx": $$0,
     "./islands/Deleter.tsx": $$1,
     "./islands/MainTable.tsx": $$2,
-    "./islands/ThemeSwitcher.tsx": $$3,
+    "./islands/SideMenu.tsx": $$3,
     "./islands/ToastsWrap.tsx": $$4,
   },
   baseUrl: import.meta.url,

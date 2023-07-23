@@ -24,6 +24,8 @@ function selectAndSubmit(e: Event) {
   ) as HTMLInputElement;
   monthInput.value = month;
 
+  console.log(year, yearInput.value);
+
   handleChange();
 }
 
@@ -66,21 +68,23 @@ export default ({ movements, total, month, year }: Props) => {
           >
             ⬅️
           </button>
-          <input
-            onChange={handleChange}
-            name="year"
-            type="number"
-            min={new Date().getFullYear() - 3}
-            max={new Date().getFullYear()}
-            value={new Date().getFullYear()}
-          />
-          <select name="month" class="w-24" onChange={handleChange}>
-            {MONTHS.map((m, i) => (
-              <option selected={i == month - 1} value={i}>
-                {m}
-              </option>
-            ))}
-          </select>
+          <div class="flex w-48 gap-1">
+            <input
+              onChange={handleChange}
+              name="year"
+              type="number"
+              min={new Date().getFullYear() - 3}
+              max={new Date().getFullYear()}
+              value={year || new Date().getFullYear()}
+            />
+            <select name="month" class="w-24" onChange={handleChange}>
+              {MONTHS.map((m, i) => (
+                <option selected={i == month - 1} value={i}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
           <button
             class="w-auto outline secondary"
             role="button"

@@ -70,10 +70,11 @@ export default (props: Props) => {
           <input
             type="number"
             name="amount"
-            placeholder="Amount"
             aria-label="amount"
-            value={Math.abs(amount).toFixed(2)}
+            value={amount > 0 ? Math.abs(amount).toFixed(2) : undefined}
+            placeholder="0.00"
             step="0.25"
+            min="0.25"
             required
           />
           <input
