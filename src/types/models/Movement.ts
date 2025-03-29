@@ -1,19 +1,13 @@
-import {
-  ColumnType,
-  Generated,
-  Insertable,
-  Selectable,
-  Updateable,
-} from "kysely";
+import { Generated, Insertable, Selectable, Updateable } from "kysely";
 import { WithTimeStamps } from "./with-timestamps";
 
 export type MovementTable = {
   id: Generated<number>;
   amount: number;
-  date: ColumnType<Date, string>;
+  date: string;
   category: string;
   description: string;
-  userId: string;
+  userId: number;
 } & WithTimeStamps;
 
 export type Movement = Selectable<MovementTable>;

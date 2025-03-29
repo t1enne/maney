@@ -6,6 +6,7 @@ import { serveStatic } from "hono/bun";
 import { createBunWebSocket } from "hono/bun";
 import { NotificationService } from "./services/notifications";
 import { logger } from "hono/logger";
+import movement from "./routes/movement";
 
 const app = new Hono();
 
@@ -13,6 +14,7 @@ app.use(logger());
 app.use("/*", serveStatic({ root: "./static" }));
 
 app.route("/", home);
+app.route("/movement", movement);
 app.route("/login", login);
 app.route("/auth", authentication);
 

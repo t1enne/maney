@@ -1,21 +1,30 @@
 import { FC } from "hono/jsx";
-import { Movement } from "../types/models/Movement";
 import dayjs from "dayjs";
 import { Layout } from "../components/layout";
 import { MOVEMENT_CATEGORIES } from "../consts/categories";
+import { db } from "../db/kysely";
+
+const getMovement = (id: number) =>
+  db
+    .selectFrom("movement")
+    .selectAll()
+    .where("id", "=", id)
+    .executeTakeFirstOrThrow();
 
 export const MovementUpsert: FC<{
-  movement?: Movement;
+  id?: number;
   userId?: string;
-}> = (props) => {
-  const { movement } = props;
-  const amount = movement?.amount || 0;
-  const today = dayjs();
+}> = async (props) => {
+  const { id } = props;
+  const movement = id ? await getMovement(id) : undefined;
+  const today = movement?.date ? dayjs(movement.date) : dayjs();
 
   const formAttrs = {
-    method: "post",
-    action: "/movement",
-    "hx-boost": "true",
+    "hx-post": `/movement${id ? `/${id}` : ""}`,
+    "hx-target": "#root",
+    "hx-select": "#root",
+    "hx-swap": "outerHTML",
+    "hx-replace-url": "true",
   } as const;
 
   return (
@@ -34,7 +43,7 @@ export const MovementUpsert: FC<{
                 <input
                   className="hidden"
                   name="userId"
-                  value={movement?.userId || "myid"}
+                  value={movement?.userId || 1}
                 />
                 <input
                   className="input"
@@ -49,7 +58,7 @@ export const MovementUpsert: FC<{
                   type="number"
                   name="amount"
                   aria-label="amount"
-                  value={amount > 0 ? Math.abs(amount).toFixed(2) : undefined}
+                  value={movement?.amount || 0}
                   placeholder="0.00"
                   step="0.25"
                   min="0.25"
@@ -60,7 +69,7 @@ export const MovementUpsert: FC<{
                   type="date"
                   id="date"
                   name="date"
-                  value={today.format("DD/MM/YY")}
+                  value={today.format("YYYY-MM-DD")}
                   required
                 />
                 <select className="select capitalize" name="category">
