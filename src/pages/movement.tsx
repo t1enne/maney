@@ -64,6 +64,7 @@ export const MovementUpsert: FC<{
                   min="0.25"
                   required
                 />
+
                 <input
                   className="input"
                   type="date"

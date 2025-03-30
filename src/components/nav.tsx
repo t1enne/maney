@@ -13,8 +13,14 @@ export const Nav = () => {
           <li>
             <SideMenu />
           </li>
-          <li className="text-red-300">
-            <a href="/auth/logout">Logout</a>
+          <li>
+            <a
+              role="button"
+              className="btn btn-link btn-error"
+              href="/auth/logout"
+            >
+              Logout
+            </a>
           </li>
         </ul>
       </div>

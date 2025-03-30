@@ -2,8 +2,11 @@ export const SideMenu = () => {
   const options = ["auto", "light", "dark"];
 
   return (
-    <details class="z-10" {...{ "@click.away": "$el.removeAttribute('open')" }}>
-      <summary>Theme</summary>
+    <details
+      class="z-10 h-full"
+      {...{ "@click.away": "$el.removeAttribute('open')" }}
+    >
+      <summary className="mt-1">Theme</summary>
       <ul className="bg-base-100 rounded-t-none p-2">
         {options.map((color) => (
           <li>

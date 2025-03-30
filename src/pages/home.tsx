@@ -2,15 +2,25 @@ import { FC } from "hono/jsx";
 import { MONTHS } from "../consts/months";
 import { Layout } from "../components/layout";
 import { MovementsTable } from "../components/movements-table";
+import { db } from "../db/kysely";
+import { padStart } from "es-toolkit/compat";
 
 export const HomePage: FC<{
   month: number;
   year: number;
 }> = async ({ month, year }) => {
+  const q = `${year}-${padStart(`${month}`, 2, "0")}-%`;
+  const total = await db
+    .selectFrom("movement")
+    .select((eb) => [eb.fn.sum("amount").as("totalAmount")])
+    .where("date", "like", q)
+    .execute();
+
   const getBackUrl = () =>
     month === 0
       ? `/?year=${year - 1}&month=${11}`
       : `/?year=${year}&month=${month - 1}`;
+
   const getNextUrl = () =>
     month === 11
       ? `/?year=${year + 1}&month=${0}`
@@ -25,7 +35,7 @@ export const HomePage: FC<{
             <h6>
               This month:
               <span class={`text-`}>
-                <strong>€ {0}</strong>
+                <strong>€ {total.at(0)?.totalAmount || 0}</strong>
               </span>
             </h6>
           </hgroup>

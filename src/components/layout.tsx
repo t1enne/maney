@@ -25,10 +25,7 @@ export const Layout: FC = (props) => {
             crossorigin="anonymous"
           >
           </script>
-          <script
-            src="https://unpkg.com/htmx-ext-sse@2.2.2"
-            crossorigin="anonymous"
-          />
+          <script type="module" src="https://unpkg.com/cally" />
           <script
             src="https://unpkg.com/htmx-ext-ws@2.0.2"
             crossorigin="anonymous"
