@@ -3,7 +3,7 @@ export const SideMenu = () => {
 
   return (
     <details
-      class="z-10 h-full"
+      className="z-10 h-full"
       {...{ "@click.away": "$el.removeAttribute('open')" }}
     >
       <summary className="mt-1">Theme</summary>

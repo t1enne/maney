@@ -9,7 +9,7 @@ export const HomePage: FC<{
   month: number;
   year: number;
 }> = async ({ month, year }) => {
-  const q = `${year}-${padStart(`${month}`, 2, "0")}-%`;
+  const q = `${year}-${padStart(`${month + 1}`, 2, "0")}-%`;
   const total = await db
     .selectFrom("movement")
     .select((eb) => [eb.fn.sum("amount").as("totalAmount")])
@@ -28,13 +28,13 @@ export const HomePage: FC<{
 
   return (
     <Layout>
-      <div className="max-w-96 m-auto">
+      <div className="max-w-[400px] m-auto">
         <div className="flex justify-between" hx-boost="true">
           <hgroup>
-            <h4 className="m-0">🔥 Expenses</h4>
-            <h6>
-              This month:
-              <span class={`text-`}>
+            <h4 className="m-0 text-2xl font-bold">🔥 Expenses</h4>
+            <h6 className="text-lg">
+              <i>This month: </i>
+              <span>
                 <strong>€ {total.at(0)?.totalAmount || 0}</strong>
               </span>
             </h6>
@@ -55,7 +55,7 @@ export const HomePage: FC<{
           <a className="btn btn-md w-auto" role="button" href={getBackUrl()}>
             <i className="ph ph-caret-left" />
           </a>
-          <div className="grid grid-cols-3 gap-1">
+          <div className="grid grid-cols-3 gap-2">
             <input
               className="input col-span-1"
               name="year"

@@ -4,12 +4,12 @@ import { z } from "zod";
 import { NotificationService } from "../services/notifications";
 import { db } from "../db/kysely";
 import { MovementCreate, MovementUpdate } from "../types/models/Movement";
-import { formToJson } from "../utils";
-import dayjs from "dayjs";
 import { MovementsPage } from "../components/movements-page";
+import dayjs from "dayjs";
+import { formToJson } from "../utils";
 
 const MovementBodySchema = z.object({
-  amount: z.coerce.number().gt(1),
+  amount: z.coerce.number().gt(0),
   description: z.string(),
   date: z.coerce.date(),
   userId: z.coerce.number(),
@@ -32,12 +32,12 @@ const upsert = async (c: Context) => {
     NotificationService.notify({
       type: "error",
       title: "Errors found",
-      subtitle: JSON.stringify(error.flatten()),
+      subtitle: JSON.stringify(error.message),
     });
-    c.status(500);
-
+    c.status(422);
     return c.html(<MovementUpsert id={id} />);
   }
+  console.log(dayjs(data.date).toISOString());
   await upsertMovement(
     {
       ...data,

@@ -1,10 +1,11 @@
+import { AvatarDropdown } from "./avatar";
 import { SideMenu } from "./side-menu";
 
 export const Nav = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm" hx-boost="true">
       <div className="flex-1">
-        <a href="/" className="btn btn-ghost text-xl">
+        <a href="/" className="btn btn-link text-xl">
           Maney!
         </a>
       </div>
@@ -14,13 +15,7 @@ export const Nav = () => {
             <SideMenu />
           </li>
           <li>
-            <a
-              role="button"
-              className="btn btn-link btn-error"
-              href="/auth/logout"
-            >
-              Logout
-            </a>
+            <AvatarDropdown />
           </li>
         </ul>
       </div>

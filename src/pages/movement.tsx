@@ -23,22 +23,24 @@ export const MovementUpsert: FC<{
     "hx-post": `/movement${id ? `/${id}` : ""}`,
     "hx-target": "#root",
     "hx-select": "#root",
-    "hx-swap": "outerHTML",
     "hx-replace-url": "true",
   } as const;
 
   return (
     <Layout>
-      <article class="grid relative" x-data>
+      <article className="grid relative max-w-[400px] m-auto" x-data>
         <div>
-          <div class="flex justify-between mb-4">
+          <div className="flex justify-between mb-4">
             <hgroup>
-              <h4>{movement ? "✎ Edit" : "💸 New"}</h4>
+              <h4 className="text-2xl font-bold">
+                {movement ? "✎ Edit" : "💸 New"}
+              </h4>
               <h6>You can {movement ? "edit" : "input"} movement info here</h6>
             </hgroup>
           </div>
+          <div className="py-2" />
           <form {...formAttrs}>
-            <div className="max-w-96 m-auto">
+            <div className="">
               <div className="flex flex-col gap-2">
                 <input
                   className="hidden"

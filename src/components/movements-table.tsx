@@ -9,10 +9,16 @@ export const MovementsTable: FC<{ month: number; year: number }> = ({
     <table className="table">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Amount</th>
-          <th className="">Description</th>
-          <th></th>
+          <th scope="col" className="w-1/4">
+            Date
+          </th>
+          <th scope="col" className="w-1/4">
+            Amount
+          </th>
+          <th scope="col" className="w-1/4">
+            Description
+          </th>
+          <th scope="col" className="w-1/4"></th>
         </tr>
       </thead>
       <tbody>

@@ -13,12 +13,11 @@ export const SessionService = {
     crypto.getRandomValues(bytes);
     return encodeBase32LowerCaseNoPadding(bytes);
   },
-  async createSession(token: string, userId: string): Promise<Session> {
+  async createSession(token: string, userId: number): Promise<Session> {
     const sessionId = encodeHexLowerCase(
       sha256(new TextEncoder().encode(token)),
     );
     const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
-    console.log({ expiresAt });
     const session: SessionCreate = {
       id: sessionId,
       userId,
@@ -42,20 +41,25 @@ export const SessionService = {
       return { session: null };
     }
     const session = _row as Session;
-    console.log({ session });
     if (Date.now() >= session.expiresAt.getTime()) {
-      //db.execute("DELETE FROM session WHERE id = ?", session.id);
       await db.deleteFrom("session").where("id", "=", session.id).execute();
       return { session: null };
     }
     if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
-      session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
-      // db.execute(
-      //   "UPDATE session SET expires_at = ? WHERE id = ?",
-      //   Math.floor(session.expiresAt.getTime() / 1000),
-      //   session.id,
-      // );
+      const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+      await db
+        .updateTable("session")
+        .where("id", "=", session.id)
+        .set("expiresAt", expiresAt)
+        .execute();
     }
+
+    const user = await db
+      .selectFrom("user")
+      .selectAll()
+      .where("id", "=", session.userId)
+      .executeTakeFirstOrThrow();
+
     return { session };
   },
   invalidateSession(sessionId: string) {

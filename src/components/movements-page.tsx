@@ -19,7 +19,7 @@ export const MovementsPage: FC<{
   month: number;
   page: number;
 }> = async ({ year, month, page }) => {
-  const q = `${year}-${padStart(`${month}`, 2, "0")}-%`;
+  const q = `${year}-${padStart(`${month + 1}`, 2, "0")}-%`;
   const movements = await getMovements(q, page);
   return (
     <>
@@ -41,7 +41,7 @@ export const MovementsPage: FC<{
             </td>
             <td>€ {m.amount?.toFixed(2)}</td>
             <td className="truncate max-w-[100px]" title={m.description}>
-              {m.description}
+              <i>{m.description}</i>
             </td>
             <td>
               <a

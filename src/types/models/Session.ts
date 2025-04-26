@@ -3,7 +3,7 @@ import { ColumnType } from "kysely";
 
 export type SessionTable = {
   id: string;
-  userId: string;
+  userId: number;
   expiresAt: ColumnType<Date, Date, Date | undefined>;
 };
 

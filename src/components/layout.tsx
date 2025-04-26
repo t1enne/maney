@@ -23,18 +23,19 @@ export const Layout: FC = (props) => {
           <script
             src="https://unpkg.com/htmx.org@2.0.4"
             crossorigin="anonymous"
-          >
-          </script>
-          <script type="module" src="https://unpkg.com/cally" />
+          />
           <script
             src="https://unpkg.com/htmx-ext-ws@2.0.2"
             crossorigin="anonymous"
           />
           <script
+            type=""
             dangerouslySetInnerHTML={{
               __html: `
 				htmx.config.globalViewTransitions = true;
 				htmx.config.useTemplateFragments = true;
+				htmx.config.defaultSwapStyle = "outerHTML";
+				htmx.config.allowEval = false;
 				`,
             }}
           />

@@ -1,9 +1,9 @@
 import { FC } from "hono/jsx";
 import { Layout } from "../components/layout";
 
-export const LoginPage: FC<{ withErrors?: true }> = ({ withErrors }) => (
+export const LoginPage: FC<{}> = ({}) => (
   <Layout>
-    <article>
+    <article hx-boost="true">
       <form
         method="post"
         action="/login"
@@ -48,11 +48,6 @@ export const LoginPage: FC<{ withErrors?: true }> = ({ withErrors }) => (
             >
               Sign up
             </a>
-            {withErrors && (
-              <div className="text-red-500">
-                Email or password are not correct
-              </div>
-            )}
           </div>
         </div>
       </form>
