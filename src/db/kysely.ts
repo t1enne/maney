@@ -5,7 +5,7 @@ import { BunSqliteDialect } from "kysely-bun-sqlite";
 
 export const db = new Kysely<DatabaseSchema>({
   dialect: new BunSqliteDialect({
-    database: new Database("db.sqlite3"),
+    database: new Database("/data/db.sqlite3"),
     onCreateConnection: async (c) => {
       await c.executeQuery(CompiledQuery.raw("PRAGMA journal_mode=WAL"));
     },

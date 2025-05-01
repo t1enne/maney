@@ -23,6 +23,7 @@ RUN apt-get update -qq && \
 # Install node modules
 COPY bun.lock package.json ./
 RUN bun install --ci
+RUN bun run tailwind 
 
 # Copy application code
 COPY . .
@@ -36,4 +37,6 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
+RUN bun run migrate:up 
+RUN bun run seed
 CMD [ "bun", "run", "start" ]

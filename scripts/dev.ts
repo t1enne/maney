@@ -7,8 +7,8 @@ const spawnOptions: SpawnOptions.OptionsObject = {
 };
 
 const run = async () => {
-  Bun.spawn(["bun", "run", "tailwind"], spawnOptions);
-  Bun.spawn(["bun", "run", "start"], spawnOptions);
+  Bun.spawn(["bun", "run", "tailwind", "--watch"], spawnOptions);
+  Bun.spawn(["bun", "run", "start:hot"], spawnOptions);
 
   process.on("SIGINT", async () => {
     console.log("Cleaning up...");
