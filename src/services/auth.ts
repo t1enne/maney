@@ -8,5 +8,5 @@ export const AuthService = {
       outputLen: 32,
       parallelism: 1,
     }),
-  verify: (hash: string, password: string) => verify(hash, password),
+  verify: verify,
 };

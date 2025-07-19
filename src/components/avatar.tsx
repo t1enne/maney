@@ -11,8 +11,8 @@ export const AvatarDropdown = () => {
         class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
       >
         <li>
-          <a className="" href="/auth/logout">
-            Logout
+          <a className="btn btn-soft btn-error !px-2" href="/auth/logout">
+            Logout 🚪
           </a>
         </li>
       </ul>

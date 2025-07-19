@@ -37,7 +37,6 @@ const upsert = async (c: Context) => {
     c.status(422);
     return c.html(<MovementUpsert id={id} />);
   }
-  console.log(dayjs(data.date).toISOString());
   await upsertMovement(
     {
       ...data,

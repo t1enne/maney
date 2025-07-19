@@ -7,22 +7,13 @@ import { createBunWebSocket } from "hono/bun";
 import { NotificationService } from "./services/notifications";
 import { logger } from "hono/logger";
 import movement from "./routes/movement";
-import { getCookie } from "hono/cookie";
-import { SessionService } from "./services/session";
+import { sessionMiddleware } from "./middleware/sessions";
 
 const app = new Hono();
 
 app.use(logger());
 app.use("/*", serveStatic({ root: "./static" }));
-app.use("/*", async (c, next) => {
-  // let sessionId = getCookie(c, "session");
-  // if (!sessionId) {
-  //   return c.redirect("/login");
-  // }
-  // const { session, user } =
-  //   await SessionService.validateSessionToken(sessionId);
-  await next();
-});
+app.use("*", sessionMiddleware());
 
 app.route("/", home);
 app.route("/movement", movement);

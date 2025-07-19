@@ -28,57 +28,55 @@ export const HomePage: FC<{
 
   return (
     <Layout>
-      <div className="max-w-[400px] m-auto">
-        <div className="flex justify-between" hx-boost="true">
-          <hgroup>
-            <h4 className="m-0 text-2xl font-bold">🔥 Expenses</h4>
-            <h6 className="text-lg">
-              <i>This month: </i>
-              <span>
-                <strong>€ {total.at(0)?.totalAmount || 0}</strong>
-              </span>
-            </h6>
-          </hgroup>
-          <a
-            role="button"
-            href="/movement/crea"
-            className="self-center btn btn-primary flex gap-2"
-          >
-            <strong className="hidden md:inline">Add</strong>
-            <strong>+</strong>
-          </a>
-        </div>
-        <fieldset
-          hx-boost
-          className="flex items-center gap-2 mb-0 justify-between mt-8"
+      <div className="flex justify-between" hx-boost="true">
+        <hgroup>
+          <h4 className="m-0 text-2xl font-bold">🔥 Expenses</h4>
+          <h6 className="text-lg">
+            <i>This month: </i>
+            <span>
+              <strong>€ {total.at(0)?.totalAmount || 0}</strong>
+            </span>
+          </h6>
+        </hgroup>
+        <a
+          role="button"
+          href="/movement/crea"
+          className="self-center btn btn-primary flex gap-2"
         >
-          <a className="btn btn-md w-auto" role="button" href={getBackUrl()}>
-            <i className="ph ph-caret-left" />
-          </a>
-          <div className="grid grid-cols-3 gap-2">
-            <input
-              className="input col-span-1"
-              name="year"
-              type="number"
-              max={new Date().getFullYear()}
-              value={year || new Date().getFullYear()}
-            />
-            <select className="select col-span-2" name="month">
-              {MONTHS.map((m, i) => (
-                <option selected={i == month} value={i + 1}>
-                  {m}
-                </option>
-              ))}
-            </select>
-          </div>
-          <a className="btn btn-md w-auto" role="button" href={getNextUrl()}>
-            <i className="ph ph-caret-right" />
-          </a>
-        </fieldset>
-        <div className="py-2" />
-        <div className="overflow-auto">
-          <MovementsTable year={year} month={month} />
+          <strong className="hidden md:inline">Add</strong>
+          <strong>+</strong>
+        </a>
+      </div>
+      <fieldset
+        hx-boost
+        className="flex items-center gap-2 mb-0 justify-between mt-8"
+      >
+        <a className="btn btn-md w-auto" role="button" href={getBackUrl()}>
+          <i className="ph ph-caret-left" />
+        </a>
+        <div className="grid grid-cols-3 gap-2">
+          <input
+            className="input col-span-1"
+            name="year"
+            type="number"
+            max={new Date().getFullYear()}
+            value={year || new Date().getFullYear()}
+          />
+          <select className="select col-span-2" name="month">
+            {MONTHS.map((m, i) => (
+              <option selected={i == month} value={i + 1}>
+                {m}
+              </option>
+            ))}
+          </select>
         </div>
+        <a className="btn btn-md w-auto" role="button" href={getNextUrl()}>
+          <i className="ph ph-caret-right" />
+        </a>
+      </fieldset>
+      <div className="py-2" />
+      <div className="overflow-auto">
+        <MovementsTable year={year} month={month} />
       </div>
     </Layout>
   );

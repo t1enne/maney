@@ -2,6 +2,10 @@
 @plugin "daisyui";
 
 html {
-	scroll-behaviour: smooth;
+  scroll-behaviour: smooth;
 }
 
+main#root {
+  width: clamp(400px, 600px, 80vw);
+  margin: auto;
+}

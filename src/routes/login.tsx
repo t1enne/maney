@@ -1,9 +1,11 @@
 import { Hono } from "hono";
 import { LoginPage } from "../pages/login";
-import assert from "node:assert/strict";
-import { AuthService } from "../services/auth";
+import { invariant } from "es-toolkit";
 import { db } from "../db/kysely";
 import { NotificationService } from "../services/notifications";
+import { SessionService } from "../services/session";
+import { AuthService } from "../services/auth";
+import { setCookie } from "hono/cookie";
 
 const login = new Hono();
 
@@ -12,8 +14,7 @@ login.post("/", async (c) => {
   const fd = await c.req.formData();
   const mail = fd.get("mail")?.toString();
   const password = fd.get("password")?.toString();
-  console.log({ mail, password });
-  assert(mail && password, "Mail or pwd missing");
+  invariant(mail && password, "Mail or pwd missing");
 
   const user = await db
     .selectFrom("user")
@@ -29,8 +30,8 @@ login.post("/", async (c) => {
     });
     return c.body("No such user");
   }
-
-  if (!(user && (await AuthService.verify(user.passwordHash, password)))) {
+  const isAuth = await AuthService.verify(user.passwordHash, password);
+  if (!isAuth) {
     c.status(422);
     NotificationService.notify({
       type: "error",
@@ -38,6 +39,10 @@ login.post("/", async (c) => {
     });
     return c.body("Email or password are not correct");
   }
+
+  const session = await SessionService.createSession(user.id);
+  const jwt = await SessionService.generateJWT(session, user);
+  setCookie(c, "jwt", jwt);
 
   return c.redirect("/");
 });

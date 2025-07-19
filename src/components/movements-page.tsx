@@ -40,7 +40,7 @@ export const MovementsPage: FC<{
               {MONTHS[month - 1]} {dayjs(m.date).get("date")}
             </td>
             <td>€ {m.amount?.toFixed(2)}</td>
-            <td className="truncate max-w-[100px]" title={m.description}>
+            <td className="truncate" title={m.description}>
               <i>{m.description}</i>
             </td>
             <td>
