@@ -23,7 +23,6 @@ RUN apt-get update -qq && \
 # Install node modules
 COPY bun.lock package.json ./
 RUN bun install --ci
-RUN bun run tailwind 
 
 # Copy application code
 COPY . .
