@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { getCookie } from "hono/cookie";
+import { deleteCookie, getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
 import { invariant } from "es-toolkit";
 
@@ -16,7 +16,12 @@ export const sessionMiddleware = () => {
     if (!jwt) {
       return c.redirect("/login");
     }
-    const payload = await verify(jwt, JWT_SECRET);
+    const payload = await verify(jwt, JWT_SECRET)
+      .then((r) => r)
+      .catch((_) => {
+        deleteCookie(c, "jwt");
+        return false;
+      });
     if (!payload) {
       return c.redirect("/login");
     }
