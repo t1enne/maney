@@ -1,7 +1,7 @@
 import { FC } from "hono/jsx";
 import { Layout } from "../components/layout";
 
-export const SignUpPage: FC<{ withError?: true }> = ({ withError }) => (
+export const SignUpPage: FC<{}> = () => (
   <Layout>
     <article>
       <form method="post" action="/auth/signup">
@@ -38,20 +38,17 @@ export const SignUpPage: FC<{ withError?: true }> = ({ withError }) => (
               Register
             </button>
             <div className="py-2" />
-            <a
-              role="button"
-              href="/login"
-              className="btn btn-link block text-center"
-            >
-              Login
-            </a>
           </div>
         </div>
-
-        {withError && (
-          <div className="text-red-500">Something went wrong, please retry</div>
-        )}
       </form>
+      <a
+        hx-boost
+        role="button"
+        href="/login"
+        className="btn btn-link block text-center"
+      >
+        Login
+      </a>
     </article>
   </Layout>
 );

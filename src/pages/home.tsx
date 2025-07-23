@@ -2,18 +2,21 @@ import { FC } from "hono/jsx";
 import { MONTHS } from "../consts/months";
 import { Layout } from "../components/layout";
 import { MovementsTable } from "../components/movements-table";
+import { MovementsRows } from "../components/movements-rows";
 import { db } from "../db/kysely";
 import { padStart } from "es-toolkit/compat";
 
 export const HomePage: FC<{
+  userId: number;
   month: number;
   year: number;
-}> = async ({ month, year }) => {
+}> = async ({ userId, month, year }) => {
   const q = `${year}-${padStart(`${month + 1}`, 2, "0")}-%`;
   const total = await db
     .selectFrom("movement")
     .select((eb) => [eb.fn.sum("amount").as("totalAmount")])
     .where("date", "like", q)
+    .where("movement.userId", "=", userId)
     .execute();
 
   const getBackUrl = () =>
@@ -28,6 +31,11 @@ export const HomePage: FC<{
 
   return (
     <Layout>
+      {/* 
+      <a role="button" hx-get="/test" className="btn btn-sm btn-info">
+        Tostami
+      </a>
+			*/}
       <div className="flex justify-between" hx-boost="true">
         <hgroup>
           <h4 className="m-0 text-2xl font-bold">🔥 Expenses</h4>
@@ -75,8 +83,10 @@ export const HomePage: FC<{
         </a>
       </fieldset>
       <div className="py-2" />
-      <div className="overflow-auto">
-        <MovementsTable year={year} month={month} />
+      <div className="h-[400px] overflow-auto">
+        <MovementsTable>
+          <MovementsRows year={year} month={month} page={1} userId={userId} />
+        </MovementsTable>
       </div>
     </Layout>
   );

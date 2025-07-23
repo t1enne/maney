@@ -1,9 +1,8 @@
-import { FC } from "hono/jsx";
 import { Layout } from "../components/layout";
 
-export const LoginPage: FC<{}> = ({}) => (
+export const LoginPage = () => (
   <Layout>
-    <article hx-boost="true">
+    <article>
       <form
         method="post"
         action="/login"
@@ -41,16 +40,17 @@ export const LoginPage: FC<{}> = ({}) => (
               Login
             </button>
             <div className="py-2" />
-            <a
-              role="button"
-              href="/auth/signup"
-              className="btn btn-link block text-center"
-            >
-              Sign up
-            </a>
           </div>
         </div>
       </form>
+      <a
+        hx-boost
+        role="button"
+        href="/auth/signup"
+        className="btn btn-link block text-center"
+      >
+        Sign up
+      </a>
     </article>
   </Layout>
 );

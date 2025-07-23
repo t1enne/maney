@@ -21,11 +21,11 @@ export const Layout: FC = (props) => {
           <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" />
           <link rel="stylesheet" href="/main.css" />
           <script
-            src="https://unpkg.com/htmx.org@2.0.4"
+            src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"
             crossorigin="anonymous"
           />
           <script
-            src="https://unpkg.com/htmx-ext-ws@2.0.2"
+            src="https://cdn.jsdelivr.net/npm/htmx-ext-ws@2.0.2"
             crossorigin="anonymous"
           />
           <script

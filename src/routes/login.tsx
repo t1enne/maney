@@ -9,7 +9,7 @@ import { setCookie } from "hono/cookie";
 
 const login = new Hono();
 
-login.get("/", (c) => c.html(<LoginPage />));
+login.get("/", (c) => c.render(<LoginPage />));
 login.post("/", async (c) => {
   const fd = await c.req.formData();
   const mail = fd.get("mail")?.toString();
@@ -26,7 +26,8 @@ login.post("/", async (c) => {
     c.status(400);
     NotificationService.notify({
       type: "error",
-      title: "No such user",
+      title: "Error",
+      subtitle: "No such user",
     });
     return c.body("No such user");
   }
@@ -35,7 +36,8 @@ login.post("/", async (c) => {
     c.status(422);
     NotificationService.notify({
       type: "error",
-      title: "Email or password are not correct",
+      title: "Error",
+      subtitle: "Email or password are not correct",
     });
     return c.body("Email or password are not correct");
   }

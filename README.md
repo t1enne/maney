@@ -13,12 +13,20 @@ A personal finance management application built with modern web technologies.
 - **Testing**: Jest + Bun Test Runner
 - **Deployment**: Dockerized deployment to [Fly.io](https://fly.io)
 
+### Authentication Flow
+
+1. **Login**: Users submit credentials, which are verified against the database.
+2. **Session Creation**: A session is created and stored in the database, and a JWT token is generated.
+3. **Cookie Storage**: The JWT token is stored in an HTTP-only cookie for secure client-side access.
+4. **Verification**: Subsequent requests include the cookie, and the JWT is verified to authenticate the user.
+5. **Logout**: Sessions are invalidated, and the cookie is cleared.
+
 ### Key Libraries
 
 - **Database**: Kysely (type-safe SQL query builder)
 - **State Management**: Alpine.js + HTMX
 - **Routing**: File-based routing system
-- **Authentication**: Rolling our own session-based auth with JWT
+- **Authentication**: Session-based authentication with JWT tokens. Sessions are stored in cookies, and JWT tokens are used for stateless verification of user identity.
 - **UI Components**: DaisyUI
 
 ## Project Structure

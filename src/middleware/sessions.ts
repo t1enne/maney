@@ -7,9 +7,12 @@ const JWT_TOKEN = "jwt";
 const JWT_SECRET = process.env.JWT_SECRET!;
 invariant(JWT_SECRET, "need to set .env");
 
+const PUBLIC_PATHS = ["/login", "/auth/signup", "/sse", "/notifications"];
+
 export const sessionMiddleware = () => {
   return async (c: Context, next: Function) => {
-    if (c.req.path === "/login") {
+    const needsAuth = !PUBLIC_PATHS.includes(c.req.path);
+    if (!needsAuth) {
       return next();
     }
     const jwt = getCookie(c, JWT_TOKEN);

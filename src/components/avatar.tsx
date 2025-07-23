@@ -1,10 +1,20 @@
+import { getCookie } from "hono/cookie";
+import { withJwt } from "../utils";
+import { useRequestContext } from "hono/jsx-renderer";
+
 export const AvatarDropdown = () => {
+  const c = useRequestContext();
+
+  const cookie = getCookie(c, "jwt");
+  const { mail } = cookie ? withJwt(c) : {};
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex="0" role="button" class="avatar avatar-placeholder">
-        <div class="bg-neutral text-neutral-content w-8 rounded-full">
-          <span class="text-xs">UI</span>
-        </div>
+        {mail && (
+          <div class="bg-neutral text-neutral-content w-8 rounded-full">
+            <span class="text-xs uppercase">{mail.slice(0, 2)}</span>
+          </div>
+        )}
       </div>
       <ul
         tabIndex="0"

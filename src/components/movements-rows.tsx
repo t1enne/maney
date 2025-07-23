@@ -4,23 +4,25 @@ import { padStart } from "es-toolkit/compat";
 import { MONTHS } from "../consts/months";
 import dayjs from "dayjs";
 
-const getMovements = (q: string, page: number) =>
+const getMovements = (userId: number, q: string, page: number) =>
   db
     .selectFrom("movement")
     .selectAll()
     .where("date", "like", q)
+    .where("userId", "=", userId)
     .orderBy("date", "asc")
     .limit(10)
     .offset(10 * (page - 1))
     .execute();
 
-export const MovementsPage: FC<{
+export const MovementsRows: FC<{
+  userId: number;
   year: number;
   month: number;
   page: number;
-}> = async ({ year, month, page }) => {
+}> = async ({ userId, year, month, page }) => {
   const q = `${year}-${padStart(`${month + 1}`, 2, "0")}-%`;
-  const movements = await getMovements(q, page);
+  const movements = await getMovements(userId, q, page);
   return (
     <>
       {movements?.map((m, i) => {
@@ -31,19 +33,19 @@ export const MovementsPage: FC<{
 
         return (
           <tr
-            id={`#movement-${m.id}`}
+            id={`movement-${m.id}`}
             hx-get={nextPage}
             hx-swap="afterend"
             hx-trigger={isLast && "intersect once"}
           >
-            <td>
+            <td className="text-nowrap">
               {MONTHS[month - 1]} {dayjs(m.date).get("date")}
             </td>
             <td>€ {m.amount?.toFixed(2)}</td>
             <td className="truncate" title={m.description}>
               <i>{m.description}</i>
             </td>
-            <td>
+            <td className="p-1">
               <a
                 hx-boost
                 hx-swap="innerHTML"
@@ -52,6 +54,17 @@ export const MovementsPage: FC<{
                 className="btn btn-sm"
               >
                 <i className="ph ph-pencil-simple" />
+              </a>
+            </td>
+            <td className="p-1">
+              <a
+                hx-delete={`/movement/${m.id}/delete`}
+                hx-target={`#movement-${m.id}`}
+                hx-swap="outerHTML"
+                role="button"
+                className="btn btn-sm"
+              >
+                <i className="ph ph-trash-simple" />
               </a>
             </td>
           </tr>

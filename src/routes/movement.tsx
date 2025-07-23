@@ -4,9 +4,9 @@ import { z } from "zod";
 import { NotificationService } from "../services/notifications";
 import { db } from "../db/kysely";
 import { MovementCreate, MovementUpdate } from "../types/models/Movement";
-import { MovementsPage } from "../components/movements-page";
 import dayjs from "dayjs";
-import { formToJson } from "../utils";
+import { formToJson, withJwt } from "../utils";
+import { MovementsRows } from "../components/movements-rows";
 
 const MovementBodySchema = z.object({
   amount: z.coerce.number().gt(0),
@@ -35,7 +35,7 @@ const upsert = async (c: Context) => {
       subtitle: JSON.stringify(error.message),
     });
     c.status(422);
-    return c.html(<MovementUpsert id={id} />);
+    return c.render(<MovementUpsert id={id} />);
   }
   await upsertMovement(
     {
@@ -43,9 +43,10 @@ const upsert = async (c: Context) => {
       date: dayjs(data.date).toISOString(),
     },
     id,
-  ).executeTakeFirst();
+  ).executeTakeFirstOrThrow();
+
   NotificationService.notify({
-    subtitle: "Movement created/updated!",
+    subtitle: "Movement saved!",
     title: "Success",
     type: "success",
   });
@@ -60,13 +61,38 @@ movement.get("/page/:page", (c) => {
   const _page = c.req.param("page") || `${1}`;
   const year = c.req.query("year") || `${new Date().getFullYear()}`;
   const month = c.req.query("month") || `${new Date().getMonth()}`;
-  return c.html(<MovementsPage year={+year} month={+month} page={+_page} />);
+  const { userId } = withJwt(c);
+  return c.render(
+    <MovementsRows userId={userId} year={+year} month={+month} page={+_page} />,
+  );
 });
 
-movement.get("/create", (c) => c.html(<MovementUpsert />));
+movement.get("/create", (c) => c.render(<MovementUpsert />));
 movement.post("/", upsert);
 
-movement.get("/:id", (c) => c.html(<MovementUpsert id={+c.req.param("id")} />));
+movement.get("/:id", (c) =>
+  c.render(<MovementUpsert id={+c.req.param("id")} />),
+);
 movement.post("/:id", upsert);
+movement.delete("/:id/delete", async (c) => {
+  try {
+    await db
+      .deleteFrom("movement")
+      .where("id", "=", +c.req.param("id"))
+      .execute();
+    NotificationService.notify({
+      type: "success",
+      subtitle: "Deleted!",
+    });
+  } catch (e) {
+    NotificationService.notify({
+      type: "error",
+      subtitle: "Failed to complete operation",
+    });
+    return c.body("Failed");
+  }
+
+  return c.html("");
+});
 
 export default movement;
