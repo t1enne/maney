@@ -5,6 +5,7 @@ import { BunSqliteDialect } from "kysely-bun-sqlite";
 
 const DEVELOPMENT = process.env.NODE_ENV !== "production";
 const dbUrl = DEVELOPMENT ? "./db.sqlite3" : "/data/db.sqlite3";
+console.log("dburl", dbUrl);
 
 export const db = new Kysely<DatabaseSchema>({
   dialect: new BunSqliteDialect({
