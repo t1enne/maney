@@ -3,6 +3,7 @@ import { promises as fs } from "node:fs";
 import { FileMigrationProvider, Migrator } from "kysely";
 import { db } from "./kysely";
 import { parseArgs } from "node:util";
+import { fileURLToPath } from "node:url";
 
 const flags = parseArgs({
   options: {
@@ -16,12 +17,16 @@ const flags = parseArgs({
 });
 
 const _db = db;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const migrationFolder = path.join(__dirname, "../db/migrations");
+console.log(`Migration folder: ${migrationFolder}`);
+
 const migrator = new Migrator({
   db: _db,
   provider: new FileMigrationProvider({
     fs,
     path,
-    migrationFolder: path.join(process.cwd(), "src/db/migrations"),
+    migrationFolder,
   }),
 });
 
