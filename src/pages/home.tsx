@@ -42,7 +42,9 @@ export const HomePage: FC<{
           <h6 className="text-lg">
             <i>This month: </i>
             <span>
-              <strong>€ {total.at(0)?.totalAmount || 0}</strong>
+              <strong id="month-total">
+                € {total.at(0)?.totalAmount || 0}
+              </strong>
             </span>
           </h6>
         </hgroup>
@@ -59,26 +61,39 @@ export const HomePage: FC<{
         hx-boost
         className="flex items-center gap-2 mb-0 justify-between mt-8"
       >
-        <a className="btn btn-md w-auto" role="button" href={getBackUrl()}>
+        <a
+          className="btn btn-md btn-soft btn-primary w-auto"
+          role="button"
+          href={getBackUrl()}
+        >
           <i className="ph ph-caret-left" />
         </a>
         <div className="grid grid-cols-3 gap-2">
           <input
+            x-on:change="console.log($event)"
             className="input col-span-1"
             name="year"
             type="number"
             max={new Date().getFullYear()}
             value={year || new Date().getFullYear()}
           />
-          <select className="select col-span-2" name="month">
+          <select
+            className="select col-span-2"
+            name="month"
+            x-on:change="console.log($event.target.value)"
+          >
             {MONTHS.map((m, i) => (
-              <option selected={i == month} value={i + 1}>
+              <option selected={i == month} value={i}>
                 {m}
               </option>
             ))}
           </select>
         </div>
-        <a className="btn btn-md w-auto" role="button" href={getNextUrl()}>
+        <a
+          className="btn btn-md btn-soft btn-primary w-auto"
+          role="button"
+          href={getNextUrl()}
+        >
           <i className="ph ph-caret-right" />
         </a>
       </fieldset>

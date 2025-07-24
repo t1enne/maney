@@ -51,7 +51,7 @@ export const MovementsRows: FC<{
                 hx-swap="innerHTML"
                 href={`/movement/${m.id}`}
                 role="button"
-                className="btn btn-sm"
+                className="btn btn-sm btn-soft btn-primary"
               >
                 <i className="ph ph-pencil-simple" />
               </a>
@@ -62,7 +62,7 @@ export const MovementsRows: FC<{
                 hx-target={`#movement-${m.id}`}
                 hx-swap="outerHTML"
                 role="button"
-                className="btn btn-sm"
+                className="btn btn-sm btn-soft btn-error"
               >
                 <i className="ph ph-trash-simple" />
               </a>

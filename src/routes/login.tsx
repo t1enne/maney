@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { LoginPage } from "../pages/login";
 import { invariant } from "es-toolkit";
 import { db } from "../db/kysely";
-import { NotificationService } from "../services/notifications";
+import { ToastSvc } from "../services/notifications";
 import { SessionService } from "../services/session";
 import { AuthService } from "../services/auth";
 import { setCookie } from "hono/cookie";
@@ -24,9 +24,7 @@ login.post("/", async (c) => {
 
   if (!user) {
     c.status(400);
-    NotificationService.notify({
-      type: "error",
-      title: "Error",
+    ToastSvc.error({
       subtitle: "No such user",
     });
     return c.body("No such user");
@@ -34,9 +32,7 @@ login.post("/", async (c) => {
   const isAuth = await AuthService.verify(user.passwordHash, password);
   if (!isAuth) {
     c.status(422);
-    NotificationService.notify({
-      type: "error",
-      title: "Error",
+    ToastSvc.error({
       subtitle: "Email or password are not correct",
     });
     return c.body("Email or password are not correct");

@@ -7,7 +7,7 @@ import { decode } from "hono/jwt";
 import { JwtPayload } from "../types/models/jwt-payload";
 import { SessionService } from "../services/session";
 import { invariant } from "es-toolkit";
-import { NotificationService } from "../services/notifications";
+import { ToastSvc } from "../services/notifications";
 import { HTTPException } from "hono/http-exception";
 
 const auth = new Hono();
@@ -25,9 +25,8 @@ auth.post("/signup", async (c) => {
     .where("user.mail", "=", mail)
     .executeTakeFirst();
 
-  console.log({ alreadyExists });
   if (alreadyExists) {
-    NotificationService.notify({ type: "error", title: "User already exists" });
+    ToastSvc.error({ title: "User already exists" });
     throw new HTTPException(422, { message: "User already exists" });
   }
 

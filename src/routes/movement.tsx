@@ -1,12 +1,13 @@
 import { Context, Hono } from "hono";
 import { MovementUpsert } from "../pages/movement";
 import { z } from "zod";
-import { NotificationService } from "../services/notifications";
+import { ToastSvc } from "../services/notifications";
 import { db } from "../db/kysely";
 import { MovementCreate, MovementUpdate } from "../types/models/Movement";
 import dayjs from "dayjs";
 import { formToJson, withJwt } from "../utils";
 import { MovementsRows } from "../components/movements-rows";
+import { padStart } from "es-toolkit/compat";
 
 const MovementBodySchema = z.object({
   amount: z.coerce.number().gt(0),
@@ -29,11 +30,7 @@ const upsert = async (c: Context) => {
     formToJson(formData),
   );
   if (!success) {
-    NotificationService.notify({
-      type: "error",
-      title: "Errors found",
-      subtitle: JSON.stringify(error.message),
-    });
+    ToastSvc.error({ subtitle: JSON.stringify(error.message) });
     c.status(422);
     return c.render(<MovementUpsert id={id} />);
   }
@@ -45,11 +42,7 @@ const upsert = async (c: Context) => {
     id,
   ).executeTakeFirstOrThrow();
 
-  NotificationService.notify({
-    subtitle: "Movement saved!",
-    title: "Success",
-    type: "success",
-  });
+  ToastSvc.success({ subtitle: "Movement saved!" });
   return c.redirect(
     `/?year=${dayjs(data.date).year()}&month=${dayjs(data.date).month()}`,
   );
@@ -74,25 +67,40 @@ movement.get("/:id", (c) =>
   c.render(<MovementUpsert id={+c.req.param("id")} />),
 );
 movement.post("/:id", upsert);
+
 movement.delete("/:id/delete", async (c) => {
+  // doesnt work, use req.referer, which has ulr params
+  const referer = c.req.header("referer");
+  const url = new URL(referer ?? "", "http://localhost"); // base required for relative URLs
+  const year = +url.searchParams.get("year")!;
+  const month = +url.searchParams.get("month")!;
+
+  const q = `${year}-${padStart(`${month + 1}`, 2, "0")}-%`;
   try {
+    const { userId } = withJwt(c);
+
     await db
       .deleteFrom("movement")
       .where("id", "=", +c.req.param("id"))
       .execute();
-    NotificationService.notify({
-      type: "success",
-      subtitle: "Deleted!",
-    });
+
+    const total = await db
+      .selectFrom("movement")
+      .select((eb) => [eb.fn.sum("amount").as("totalAmount")])
+      .where("date", "like", q)
+      .where("movement.userId", "=", userId)
+      .executeTakeFirst();
+
+    ToastSvc.success({ subtitle: "Deleted!" });
+    return c.html(
+      <strong id="month-total" hx-swap-oob>
+        {total?.totalAmount}
+      </strong>,
+    );
   } catch (e) {
-    NotificationService.notify({
-      type: "error",
-      subtitle: "Failed to complete operation",
-    });
+    ToastSvc.error({ subtitle: "Failed to complete operation" });
     return c.body("Failed");
   }
-
-  return c.html("");
 });
 
 export default movement;

@@ -3,7 +3,7 @@ import authentication from "./routes/auth";
 import login from "./routes/login";
 import home from "./routes/home";
 import { serveStatic, createBunWebSocket } from "hono/bun";
-import { NotificationService } from "./services/notifications";
+import { ToastSvc } from "./services/notifications";
 import { logger } from "hono/logger";
 import movement from "./routes/movement";
 import { sessionMiddleware } from "./middleware/sessions";
@@ -27,7 +27,7 @@ app.get(
   upgradeWebSocket((_) => {
     console.log("Upgrading websockets");
     return {
-      onOpen: NotificationService.init,
+      onOpen: ToastSvc.init,
       onClose: () => {
         console.log(`WS connection closed`);
       },

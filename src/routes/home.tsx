@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { HomePage } from "../pages/home";
 import { withJwt } from "../utils";
-import { NotificationService } from "../services/notifications";
 
 const home = new Hono();
 
