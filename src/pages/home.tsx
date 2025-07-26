@@ -31,11 +31,28 @@ export const HomePage: FC<{
 
   return (
     <Layout>
-      {/* 
-      <a role="button" hx-get="/test" className="btn btn-sm btn-info">
-        Tostami
-      </a>
-			*/}
+      <div className="flex gap-2 py-4" hidden={true}>
+        <a role="button" hx-get="/test/info" className="btn btn-sm btn-info">
+          info
+        </a>
+        <a
+          role="button"
+          hx-get="/test/success"
+          className="btn btn-sm btn-success"
+        >
+          success
+        </a>
+        <a role="button" hx-get="/test/error" className="btn btn-sm btn-error">
+          error
+        </a>
+        <a
+          role="button"
+          hx-get="/test/warning"
+          className="btn btn-sm btn-warning"
+        >
+          warning
+        </a>
+      </div>
       <div className="flex justify-between" hx-boost="true">
         <hgroup>
           <h4 className="m-0 text-2xl font-bold">🔥 Expenses</h4>

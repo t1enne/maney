@@ -18,6 +18,11 @@ export const Layout: FC = (props) => {
             type="text/css"
             href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
           />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+          />
           <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" />
           <link rel="stylesheet" href="/main.css" />
           <script
@@ -41,11 +46,15 @@ export const Layout: FC = (props) => {
           />
         </head>
         <body hx-ext="ws" ws-connect="/notifications">
+          <aside
+            id="toaster"
+            x-data
+            className="toast fixed z-10 top-0 left-0 pl-12 pt-24 pointer-events-none"
+          />
           <Nav />
           <main id="root" className="p-4">
             {props.children}
           </main>
-          <aside id="toaster" className="toast toast-bottom" />
         </body>
       </html>
     </>

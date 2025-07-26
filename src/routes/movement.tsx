@@ -42,7 +42,7 @@ const upsert = async (c: Context) => {
     id,
   ).executeTakeFirstOrThrow();
 
-  ToastSvc.success({ subtitle: "Movement saved!" });
+  ToastSvc.success({ subtitle: "Movement saved!", duration: 250000 });
   return c.redirect(
     `/?year=${dayjs(data.date).year()}&month=${dayjs(data.date).month()}`,
   );
