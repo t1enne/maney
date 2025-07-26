@@ -9,25 +9,15 @@ A personal finance management application built with modern web technologies.
 - **Runtime**: [Bun](https://bun.sh) (v1.x)
 - **Database**: SQLite with [Kysely](https://kysely.dev) ORM
 - **FE/BE**: Hono JSX with TypeScript
-- **Styling**: Vanilla CSS + CSS Modules
+- **Styling**: Tailwind + DaisyUI
 - **Testing**: Jest + Bun Test Runner
 - **Deployment**: Dockerized deployment to [Fly.io](https://fly.io)
-
-### Authentication Flow
-
-1. **Login**: Users submit credentials, which are verified against the database.
-2. **Session Creation**: A session is created and stored in the database, and a JWT token is generated.
-3. **Cookie Storage**: The JWT token is stored in an HTTP-only cookie for secure client-side access.
-4. **Verification**: Subsequent requests include the cookie, and the JWT is verified to authenticate the user.
-5. **Logout**: Sessions are invalidated, and the cookie is cleared.
 
 ### Key Libraries
 
 - **Database**: Kysely (type-safe SQL query builder)
 - **State Management**: Alpine.js + HTMX
-- **Routing**: File-based routing system
 - **Authentication**: Session-based authentication with JWT tokens. Sessions are stored in cookies, and JWT tokens are used for stateless verification of user identity.
-- **UI Components**: DaisyUI
 
 ## Project Structure
 
@@ -35,6 +25,7 @@ A personal finance management application built with modern web technologies.
 .
 ├── src/
 │   ├── components/      # Reusable React components
+│   ├── client/          # Client-side code compiled separetely
 │   ├── consts/          # Application constants
 │   ├── db/              # Database configuration and migrations
 │   ├── middleware/      # Server middleware
@@ -82,7 +73,7 @@ bun test
 1. Build Docker image:
 
 ```bash
-docker build -t home-finances .
+docker build -t maney .
 ```
 
 2. Deploy to Fly.io:
