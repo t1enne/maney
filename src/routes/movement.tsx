@@ -32,7 +32,7 @@ const upsert = async (c: Context) => {
   if (!success) {
     ToastSvc.error({ subtitle: JSON.stringify(error.message) });
     c.status(422);
-    return c.render(<MovementUpsert id={id} />);
+    return c.body(error.message);
   }
   await upsertMovement(
     {
@@ -60,12 +60,17 @@ movement.get("/page/:page", (c) => {
   );
 });
 
-movement.get("/create", (c) => c.render(<MovementUpsert />));
+movement.get("/create", (c) => {
+  const { userId } = withJwt(c);
+  return c.render(<MovementUpsert userId={userId} />);
+});
+
 movement.post("/", upsert);
 
-movement.get("/:id", (c) =>
-  c.render(<MovementUpsert id={+c.req.param("id")} />),
-);
+movement.get("/:id", (c) => {
+  const { userId } = withJwt(c);
+  return c.render(<MovementUpsert id={+c.req.param("id")} userId={userId} />);
+});
 movement.post("/:id", upsert);
 
 movement.delete("/:id/delete", async (c) => {

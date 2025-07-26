@@ -13,9 +13,9 @@ const getMovement = (id: number) =>
 
 export const MovementUpsert: FC<{
   id?: number;
-  userId?: string;
+  userId?: number;
 }> = async (props) => {
-  const { id } = props;
+  const { id, userId } = props;
   const movement = id ? await getMovement(id) : undefined;
   const today = movement?.date ? dayjs(movement.date) : dayjs();
 
@@ -41,11 +41,7 @@ export const MovementUpsert: FC<{
         <form {...formAttrs}>
           <div className="">
             <div className="flex flex-col gap-2">
-              <input
-                className="hidden w-full"
-                name="userId"
-                value={movement?.userId || 1}
-              />
+              <input className="hidden w-full" name="userId" value={userId} />
               <input
                 className="input w-full"
                 type="text"
