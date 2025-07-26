@@ -23,7 +23,11 @@ export const Layout: FC = (props) => {
             type="text/css"
             href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
           />
-          <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" />
+          <script type="module" src="/index.js" defer />
+          <script
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+            defer
+          />
           <link rel="stylesheet" href="/main.css" />
           <script
             src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"

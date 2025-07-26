@@ -3,6 +3,7 @@ export const SideMenu = () => {
 
   return (
     <details
+      x-data
       className="z-10 h-full"
       {...{ "@click.away": "$el.removeAttribute('open')" }}
     >

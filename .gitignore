@@ -1,4 +1,8 @@
 .env
 node_modules
-static/main.css
+
+static/*.css
+static/*.js
+static/*.js.map
+
 db.sqlite3*

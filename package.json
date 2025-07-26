@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "bun run scripts/dev.ts",
     "start:hot": "bun run --hot src/index.ts",
-    "start": "bun run src/index.ts",
+    "compile": "bun run tsc -p src/client/ --watch --outDir static/",
     "tailwind": "bun run tailwindcss --input src/styles/main.css --output static/main.css",
     "migrate:up": "bun run src/db/migrator.ts --up",
     "migrate:d": "bun run src/db/migrator.ts --down",
@@ -30,9 +30,11 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
     "@types/bun": "latest",
     "daisyui": "^5.0.46",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "typescript": "^5.8.3"
   },
   "trustedDependencies": [
     "@parcel/watcher",
