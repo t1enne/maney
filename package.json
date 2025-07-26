@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "bun run scripts/dev.ts",
     "start:hot": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
     "compile": "bun run tsc -p src/client/ --watch --outDir static/",
     "tailwind": "bun run tailwindcss --input src/styles/main.css --output static/main.css",
     "migrate:up": "bun run src/db/migrator.ts --up",
