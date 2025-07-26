@@ -4,7 +4,7 @@ import { Layout } from "../components/layout";
 export const SignUpPage: FC<{}> = () => (
   <Layout>
     <article>
-      <form method="post" action="/auth/signup">
+      <form hx-boost method="post" action="/auth/signup">
         <div>
           <div className="flex flex-col items-center gap-2">
             <div>

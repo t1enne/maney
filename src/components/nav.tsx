@@ -3,9 +3,13 @@ import { SideMenu } from "./side-menu";
 
 export const Nav = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm" hx-boost="true">
+    <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <a href="/" className="btn btn-link text-xl decoration-transparent">
+        <a
+          hx-boost
+          href="/"
+          className="btn btn-link text-xl decoration-transparent"
+        >
           Maney!
         </a>
       </div>

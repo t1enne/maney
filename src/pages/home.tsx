@@ -53,7 +53,7 @@ export const HomePage: FC<{
           warning
         </a>
       </div>
-      <div className="flex justify-between" hx-boost="true">
+      <div className="flex justify-between">
         <hgroup>
           <h4 className="m-0 text-2xl font-bold">🔥 Expenses</h4>
           <h6 className="text-lg">
@@ -66,6 +66,7 @@ export const HomePage: FC<{
           </h6>
         </hgroup>
         <a
+          hx-boost
           role="button"
           href="/movement/crea"
           className="self-center btn btn-primary flex gap-2"
@@ -74,11 +75,9 @@ export const HomePage: FC<{
           <strong>+</strong>
         </a>
       </div>
-      <fieldset
-        hx-boost
-        className="flex items-center gap-2 mb-0 justify-between mt-8"
-      >
+      <fieldset className="flex items-center gap-2 mb-0 justify-between mt-8">
         <a
+          hx-boost
           className="btn btn-md btn-soft btn-primary w-auto"
           role="button"
           href={getBackUrl()}
@@ -107,6 +106,7 @@ export const HomePage: FC<{
           </select>
         </div>
         <a
+          hx-boost
           className="btn btn-md btn-soft btn-primary w-auto"
           role="button"
           href={getNextUrl()}

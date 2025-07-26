@@ -4,6 +4,7 @@ export const LoginPage = () => (
   <Layout>
     <article>
       <form
+        hx-boost
         method="post"
         action="/login"
         className="flex items-center justify-center"

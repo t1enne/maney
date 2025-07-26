@@ -26,7 +26,7 @@ auth.post("/signup", async (c) => {
     .executeTakeFirst();
 
   if (alreadyExists) {
-    ToastSvc.error({ title: "User already exists" });
+    ToastSvc.error({ subtitle: "User already exists" });
     throw new HTTPException(422, { message: "User already exists" });
   }
 
