@@ -5,6 +5,7 @@ import { MovementsTable } from "../components/movements-table";
 import { MovementsRows } from "../components/movements-rows";
 import { db } from "../db/kysely";
 import { padStart } from "es-toolkit/compat";
+import { fmtCurrency } from "../utils";
 
 export const HomePage: FC<{
   userId: number;
@@ -29,6 +30,7 @@ export const HomePage: FC<{
       ? `/?year=${year + 1}&month=${0}`
       : `/?year=${year}&month=${month + 1}`;
 
+  const formattedTotal = fmtCurrency((total.at(0)?.totalAmount as number) || 0);
   return (
     <Layout>
       <div className="flex gap-2 py-4" hidden={true}>
@@ -59,9 +61,7 @@ export const HomePage: FC<{
           <h6 className="text-lg">
             <i>This month: </i>
             <span>
-              <strong id="month-total">
-                € {total.at(0)?.totalAmount || 0}
-              </strong>
+              <strong id="month-total">€ {formattedTotal}</strong>
             </span>
           </h6>
         </hgroup>
@@ -75,9 +75,12 @@ export const HomePage: FC<{
           <strong>+</strong>
         </a>
       </div>
-      <fieldset className="flex items-center gap-2 mb-0 justify-between mt-8">
+      <fieldset
+        hx-boost
+        x-data="dateSelector"
+        className="flex items-center gap-2 mb-0 justify-between mt-8"
+      >
         <a
-          hx-boost
           className="btn btn-md btn-soft btn-primary w-auto"
           role="button"
           href={getBackUrl()}
@@ -86,17 +89,15 @@ export const HomePage: FC<{
         </a>
         <div className="grid grid-cols-3 gap-2">
           <input
-            x-on:change="console.log($event)"
+            x-on:change="onYearChange($event.target.value)"
             className="input col-span-1"
-            name="year"
             type="number"
             max={new Date().getFullYear()}
             value={year || new Date().getFullYear()}
           />
           <select
             className="select col-span-2"
-            name="month"
-            x-on:change="console.log($event.target.value)"
+            x-on:change="onMonthChange($event.target.value)"
           >
             {MONTHS.map((m, i) => (
               <option selected={i == month} value={i}>
@@ -106,7 +107,6 @@ export const HomePage: FC<{
           </select>
         </div>
         <a
-          hx-boost
           className="btn btn-md btn-soft btn-primary w-auto"
           role="button"
           href={getNextUrl()}

@@ -4,6 +4,7 @@ import { getCookie } from "hono/cookie";
 import { JwtPayload } from "../types/models/jwt-payload";
 import { decode } from "hono/jwt";
 import { attempt } from "es-toolkit";
+import { currency } from "./formatters";
 
 export const isNullable = <T>(v: T) => isNull(v) || isUndefined(v);
 export const formToJson = (fd: FormData) => {
@@ -23,3 +24,5 @@ export const withJwt = (c: Context) => {
   invariant(!error, "need valid cookie payload");
   return jwt!;
 };
+
+export const fmtCurrency = (sum: number) => currency.format(sum);
