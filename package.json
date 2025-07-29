@@ -10,7 +10,7 @@
     "migrate:up": "bun run src/db/migrator.ts --up",
     "migrate:d": "bun run src/db/migrator.ts --down",
     "seed": "bun run src/db/seed.ts",
-    "test": "jest --watch"
+    "test": "bun test --watch"
   },
   "dependencies": {
     "@conform-to/zod": "^1.8.2",

@@ -14,6 +14,7 @@ async function notify(t: ToastProps) {
 export const ToastSvc = {
   init: (_: unknown, ws: WSContext<unknown>) => {
     webSocketContext = ws;
+    ToastSvc.success({ title: "Toasts init" });
   },
   success: (t: ToastProps) => notify({ ...t, type: "success" }),
   info: (t: ToastProps) => notify({ ...t, type: "info" }),

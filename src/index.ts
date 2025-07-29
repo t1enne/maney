@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import authentication from "./routes/auth";
 import login from "./routes/login";
 import home from "./routes/home";
+import groups from "./routes/groups";
 import { serveStatic, createBunWebSocket } from "hono/bun";
 import { ToastSvc } from "./services/notifications";
 import { logger } from "hono/logger";
@@ -19,6 +20,7 @@ app.use("*", sessionMiddleware());
 
 app.route("/", home);
 app.route("/movement", movement);
+app.route("/groups", groups);
 app.route("/login", login);
 app.route("/auth", authentication);
 

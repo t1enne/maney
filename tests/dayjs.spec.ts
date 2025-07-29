@@ -1,3 +1,4 @@
+import { describe, expect } from "bun:test";
 import dayjs from "dayjs";
 
 describe("dayjs tests", () => {

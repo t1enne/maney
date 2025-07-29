@@ -20,7 +20,16 @@ export const Nav = () => {
               className="drawer-overlay"
             ></label>
             <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-              <li></li>
+              <li>
+                <a hx-boost href="/">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a hx-boost href="/groups">
+                  Groups
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -35,11 +44,6 @@ export const Nav = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a hx-boost href="/">
-                Home
-              </a>
-            </li>
-            <li>
               <a>Portfolio</a>
             </li>
             <li>
@@ -49,7 +53,9 @@ export const Nav = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-link  text-xl">Maney</a>
+        <a hx-boost href="/" className="btn btn-link text-xl">
+          Maney
+        </a>
       </div>
       <div className="navbar-end">
         <ul className="menu menu-horizontal px-1">
