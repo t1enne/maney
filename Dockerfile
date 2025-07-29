@@ -35,5 +35,5 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD bun run tailwind && bun run migrate:up && bun run seed && bun run start
+CMD  bun run compile && bun run tailwind && bun run migrate:up && bun run seed && bun run start
 
